@@ -1,0 +1,72 @@
+---
+title: Programação em R
+subtitle: Curso do básico à documentos dinâmicos
+author: Eduardo Elias Ribeiro Junior (<https://jreduardo.github.io>)
+header-includes:
+  - \usepackage{mathpazo}
+  - \usepackage{hyperref}
+  - \hypersetup{colorlinks, allcolors=., urlcolor=blue}
+  - \pagenumbering{gobble}
+output: pdf_document
+---
+
+R é uma a linguagem e ambiente para computação estatística e gráfica,
+disponível sob os termos da licença GNU de software livre, criada em
+1996 por Robert Gentleman and Ross Ihaka. O R é empregado no ambiente
+acadêmico desde sua criação, mas foi na última década que o software
+passou a ser comumente utilizado também no ambiente corporativo e hoje é
+a linguagem que mais cresce em questão de novos usuários.
+
+Pode-se destacar diversos tópicos que fazem do R a excelência em
+software para manipulação de dados, análise estatística e visualização
+gráfica, porém listamos apenas alguns abaixo:
+
+* Eficaz em manipulação e tratamento de dados;
+* Grande conjunto de recursos para cálculos vetoriais e matriciais;
+* Diversas ferramentas para análise de dados;
+* Ampla suíte de funções para visualização de dados, que podem ser
+  exportados para diversos formatos;
+* Linguagem de programação simples e eficaz (loops, condicionais,
+  funções recursivas, etc.);
+* Simples construção e disponibilização de pacotes com funções
+  específicas, via CRAN (Comprehensive R Archive Network); e
+* Comunidade (brasileira e internacional) extremamente ativa.
+
+Portanto, o aprendizado do software R é um dos mais rentáveis
+investimentos realizados por pesquisadores que, com a liberdade do
+software, podem propor novas metodologias, avaliar as existentes,
+conduzir estudos de simulação, implementar interfaces gráficas, entre
+outras infinitas possibilidades fazendo com que sua produção científica
+seja melhorada tanto em quantidade como em qualidade.
+
+## Estruturação ##
+
+**Conteúdo**
+
+ - Instalação do software R (<http://r-project.org/>) e editores
+   (e.g. Rstudio <https://www.rstudio.com/>);
+ - Conceitos da linguagem e Manipulação de objetos (operadores, objetos,
+   funções, _loops_ e pacotes);
+ - Elaboração de documentos dinâmicos;
+ - Análise descritiva de dados:
+     - Estatísticas simples (média, variância, amplitude, quartis);
+     - Visualização de dados (uni e multidimensionais);
+ - Introdução aos modelos lineares no R (regressão linear simples,
+   regressão linear múltipla e ANOVA);
+ - Auto aprendizado no R (consultando documentação, vinhetas, inspeção
+   de código-fonte).
+
+**Carga horária**
+
+Curso planejado para 15 horas. Aulas semanais às terças e sextas das 16h
+às 17h30. Início à definir, sugestão de 04/04/2017 a 04/05/2017.
+
+**Condução do curso**
+
+Aulas expositivas/práticas com o uso de computadores (cada participante
+deve levar seu computador pessoal). Sugere-se que a instalação dos
+softwares seja realizada anteriormente às aulas.
+
+**Investimento**
+
+R\$250 por participante. Mínimo 6 participantes.
