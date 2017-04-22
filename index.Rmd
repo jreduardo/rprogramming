@@ -1,0 +1,37 @@
+---
+title: "Programação em R"
+subtitle: "do básico à documentos dinâmicos"
+---
+
+***
+
+Esta página web foi criada para armazenamento e disponibilização dos
+materiais elaborados para o curso _Programação em R: do básico à
+documentos dinâmicos_, ministrado para pesquisadores do Departamento de
+Agroindústria, Alimentos e Nutrição (LAN) da Escola Superior de
+Agricultura "Luiz Queiroz" da Universidade de São Paulo (ESALQ-USP).
+
+O curso abrange i) os conceitos básicos da programação em R como
+construção de funções, uso de estruturas iterativas e manipulação de
+objetos; ii) elaboração de documentos dinâmicos; iii) O uso do R para
+análise de dados extração de estatísticas simples, visualização de dados
+e o uso de funções para modelagem; e iv) auto-aprendizado - consultar
+funções, documentação e código-fonte de pacotes.
+
+Todos os materiais do curso são elaborados, essencialmente, como o pacote
+[rmarkdown](http://rmarkdown.rstudio.com/) do R, cujo arquivos-fonte
+estão disponíveis no repositório do GitHub
+[`rprogramming`](https://github.com/jreduardo/programming). As aulas
+podem ser acessadas pela barra de navegação ou ainda pela página do
+[histórico das aulas](lectures.html).
+
+```{r, results="asis", echo=FALSE}
+
+cat(paste0(
+    "<div id='update-message'>",
+    format(Sys.time(),
+           format = "Atualizado em %d de %B de %Y."),
+    "</div>"),
+    sep = "\n")
+
+```

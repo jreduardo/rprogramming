@@ -1,0 +1,149 @@
+/*------------------------------------------- */
+/* Configura estilo geral do documento */
+body {
+    text-align: justify;
+    font-size: 16px;
+    color: #000;
+}
+
+/*------------------------------------------- */
+/* Configura o estilo do título */
+#header {
+    /* background-color: #F6F6F6; */
+    border-top: 0px solid #003A3A;
+    border-right: 0px solid black;
+    border-bottom: 0px solid #003A3A;
+    border-left: 0px solid black;
+    padding-top: 10px;
+    margin: 10px;
+}
+
+h1.title {
+    text-align: center;
+    line-height: 1;
+}
+
+h3.subtitle {
+    text-align: center;
+}
+
+h4.author {
+    text-align: center;
+}
+
+h4.date {
+    text-align: center;
+}
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+    color: #000;
+}
+
+/*------------------------------------------- */
+/* Configura a tabela de conteúdo */
+/* Geral TOC */
+#TOC {
+    border-radius: 0px;
+}
+
+/* Sob argumento yaml toc_float */
+.list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover {
+    font-weight: bold;
+}
+
+/*------------------------------------------- */
+/* Para messagem de atualização de página */
+#update-message{
+    font-size: 10pt;
+    text-align: right;
+    color: black;
+    padding-top: 20px;
+}
+
+/*------------------------------------------- */
+/* Center the table and add top/bottom margins */
+table {
+    /* page-break-before: always; */
+    /* display: table; */
+    /* float: left; */
+    /* margin: auto; */
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    border: none;
+    border-top: 2px solid #333333;
+    border-bottom: 2px solid #333333;
+    border-left: 0px;
+    border-right: 0px;
+    /* border-collapse: separate; */
+    border-collapse: collapse;
+}
+
+tr.header {
+    border-bottom: 3px solid #333333;
+}
+
+table.none {
+    border-top: 0px solid #333333;
+    border-bottom: 0px solid #333333;
+}
+
+table.wide {
+    width: 95%;
+}
+
+th, td, tr {
+    /* color: #555555; */
+    border-bottom: 0px;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 1px;
+    padding-bottom: 0px;
+}
+
+th {
+    border-bottom: 1px solid #333333;
+}
+
+th.none {
+    border-bottom: 0px solid #333333;
+}
+
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr
+    > th, .table > thead > tr > td, .table > tbody > tr > td, .table >
+    tfoot > tr > td {
+    vertical-align: middle;
+}
+
+/*------------------------------------------- */
+/* codigos */
+pre {
+    border: 0px solid #CCC;
+    border-radius: 0px;
+    padding: 9.5px;
+}
+
+code {
+    color: inherit;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+pre, code {
+    background-color: #DEDEDE;
+}
+
+pre:not([class]) {
+    background-color: #C8C8C8;
+}
+
+/*------------------------------------------- */
+/* Barra de navegação */
+.navbar {
+    border: none;
+    box-shadow: 0px 1px 15px 0px rgba(33, 68, 120, 0.4);
+}

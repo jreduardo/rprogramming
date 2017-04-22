@@ -1,0 +1,38 @@
+
+***
+
+# O ministrante #
+
+**[Eduardo Elias Ribeiro Junior](https://jreduardo.github.io/):**
+Bacharel em Estatística pela Universidade Federal do Paraná em 2016,
+membro do Laboratório de Estatística e Geoinformação e mestrando do
+programa de Estatística e Experimentação Agronômica da ESALQ. Tem como
+linhas de pesquisa modelos de regressão para dados de contagem, modelos
+mistos, ciência reproduzível com R e interfaces interativas para ensino
+de Estatística. É autor dos pacotes
+[`cmpreg`](https://github.com/JrEduardo/cmpreg),
+[`MRDCr`](https://github.com/leg-ufpr/MRDCr) e
+[`labestData`](https://github.com/pet-estatistica/labestData), usuário
+ativo do R, Git e Linux e incentivador do uso de softwares livres.<br>
+**Contato:** edujrrib@gmail.com / GitHub:
+[JrEduardo](https://github.com/JrEduardo).
+
+# O curso #
+
+O curso de programação R para os pesquisadores do Departamento de
+Agroindústria, Alimentos e Nutrição (LAN) da ESALQ-USP foi idealizado
+com o intuito de promover e capacitar os participantes na utilização do
+R para realização de suas pesquisas. Espera-se que, ao final deste
+curso, os participantes tenham autonomia para conduzir rotinas em R para
+analisar, manipular, visualizar e relatar adequadamente seus dados.
+
+```{r, results="asis", echo=FALSE}
+
+cat(paste0(
+    "<div id='update-message'>",
+    format(Sys.time(),
+           format = "Atualizado em %d de %B de %Y."),
+    "</div>"),
+    sep = "\n")
+
+```

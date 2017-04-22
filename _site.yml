@@ -1,0 +1,19 @@
+name: ""
+output_dir: "_site/"
+output:
+  html_document:
+    theme: lumen
+    highlight: tango
+    css: css/jr-courses.css
+navbar:
+  right:
+    - text: Home
+      href: index.html
+    - text: Histórico
+      href: lectures.html
+    - text: Exercícos
+      href: activies.html
+    - text: Sobre
+      href: about.html
+    - icon: fa-github-alt fa-lg
+      href: https://github.com/stats-cwr/stats4med
