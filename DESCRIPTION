@@ -1,0 +1,14 @@
+Package: rprogramming
+Title: jR courses
+Version: 0.0.1
+Imports:
+  rmarkdown,
+  knitr,
+  ggplot2,
+  grid,
+  gridExtra,
+  lattice,
+  latticeExtra,
+  xaringan
+Remotes:
+  yihui/xaringan
