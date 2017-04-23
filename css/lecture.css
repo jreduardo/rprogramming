@@ -1,0 +1,35 @@
+.remark-slide-content {
+    padding: 0em 4em 1em 4em;
+}
+
+.remark-code {
+    font-size: 16px;
+}
+
+.extra-space {
+    margin-bottom: 60px;
+}
+
+.hljs-comment {
+    font-style: italic;
+}
+
+pre {
+    box-shadow: 0px 0px 10px 2px #CCC;
+}
+
+img {
+    box-shadow: 0px 0px 10px 2px #CCC;
+}
+
+/* h1#programa-o-em-r::before { */
+/*     background-image: url('../images/logo.png'); */
+/*     background-size: 100px; */
+/*     display: inline-block; */
+/*     content: ""; */
+/*     width: 70px; */
+/*     height: 110px; */
+/*     background-repeat: no-repeat; */
+/*     padding-right: 80px; */
+/*     margin-bottom: -40px; */
+/* } */
