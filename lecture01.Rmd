@@ -35,19 +35,38 @@ library(gridExtra)
 
 ## Referências ##
 
-- Palestra do profº Paulo Justiniano (UFPR) no meetupR-SP<br>
+- Palestra do profº Paulo Justiniano (UFPR) no meetupR-SP
+  (2016)<br>
   _Por que o R?_<br>
   <https://youtu.be/UgPX49gkby4>
 
-- Seminário do software eng. Yihui Xie (RStudio) no RTG Seminar<br>
+- Seminário do software eng. Yihui Xie (RStudio) no RTG Seminar
+  (2009)<br>
   _R in Stat500: Demonstration, Computing, and Graphics_<br>
   <https://cloud.github.com/downloads/yihui/yihui.github.com/ISU-Stat500-2009-Yihui-Xie.pdf>
+
+- Minicurso de Daniel Ikenaga (PET) na 60ª Rbras / 16º Seagro
+  (2015)<br>
+  _RStudio: Ferramentas e funcionalidades_<br>
+  <http://www.pet.est.ufpr.br/minicursorstudio/index2.html>
+
+- Apresentação do profº Deepayan Sarkar (ISI) material de ensino
+  (2010)<br>
+  _The R Environment: A high-level overview_<br>
+  <http://www.isid.ac.in/~deepayan/R-tutorials/docs/roverview.pdf>
 
 ---
 
 class: inverse, center, middle
 
 # O software R #
+
+---
+
+<video controls name="media" class="video">
+  <source src="http://www.pet.est.ufpr.br/minicursorstudio/r-stats.mp4"
+   type="video/mp4">
+</video>
 
 ---
 
@@ -83,9 +102,11 @@ do.call(rbind, lapply(dados, summary))
 
 ## Comunidade ativa ##
 
-Relatados <font color="red">158 livros</font> com aplicações em R.
+Relatados
+[**159 livros**](https://www.r-project.org/doc/bib/R-books.html) com
+aplicações em R.
 
-```{r, out.width = "80%"}
+```{r, out.width = "90%"}
 
 knitr::include_graphics("images/r-books.png")
 
@@ -95,9 +116,10 @@ knitr::include_graphics("images/r-books.png")
 
 ## Comunidade ativa ##
 
-Atualmente (29/08/2016) <font color="red">9.037 pacotes</font> no CRAN.
+Atualmente (25/04/2017)
+[**10.470 pacotes**](https://cran.r-project.org/web/packages/) no CRAN.
 
-```{r, out.width = "80%"}
+```{r, out.width = "90%"}
 
 knitr::include_graphics("images/packs.png")
 
@@ -107,11 +129,51 @@ knitr::include_graphics("images/packs.png")
 
 ## Comunidade ativa ##
 
-<font color="red">580 blogs</font> vínculados ao R-bloggers.
+Atualmente (25/04/2017) [**750 blogs**](https://www.r-bloggers.com/)
+indexados ao R-bloggers.
 
-```{r, out.width = "80%"}
+```{r, out.width = "90%"}
 
 knitr::include_graphics("images/rblogs.png")
+
+```
+
+---
+
+## Comunidade nacional ativa ##
+
+Lista brasileira de discussão sobre R
+[R-br](http://r-br.2285057.n4.nabble.com/).
+
+```{r, out.width = "90%"}
+
+knitr::include_graphics("images/r-br.png")
+
+```
+
+---
+
+## Comunidade nacional ativa ##
+
+Publicações em blogs nacionais sobre R
+[Rbloggers-br](https://twitter.com/rbloggersBR), por Sillas Gonzaga.
+
+```{r, out.width = "90%"}
+
+knitr::include_graphics("images/rblogsbr.png")
+
+```
+
+---
+
+## Comunidade nacional ativa ##
+
+Perguntas e respostas para programadores (... e além)
+[Stackoverflow BR](https://pt.stackoverflow.com/tags/r)
+
+```{r, out.width = "90%"}
+
+knitr::include_graphics("images/stack-br.png")
 
 ```
 
@@ -196,6 +258,9 @@ class: inverse, center, middle
 
 ## Download ##
 
+Atualmente na versão 3.4.0 (_You Stupid Darkness_)
+[disponível no CRAN](https://cran.r-project.org/)
+
 ```{r, out.width="90%"}
 
 knitr::include_graphics("images/rcran.png")
@@ -232,10 +297,52 @@ knitr::include_graphics("images/rstudio1.png")
 
 ```{r, out.width="90%"}
 
-knitr::include_graphics("images/rstudio.png")
+knitr::include_graphics("images/rstudio-example.png")
 
 ```
 
 ---
 
-## Tutoriais ##
+class: inverse, center, middle
+
+## Editor Rstudio ##
+
+---
+
+class: middle
+
+```{r, out.width="90%"}
+
+knitr::include_graphics("images/rstudio-example3.png")
+
+```
+
+---
+
+class: middle
+
+```{r, out.width="90%"}
+
+knitr::include_graphics("images/rstudio-example4.png")
+
+```
+
+---
+
+class: middle
+
+```{r, out.width="90%"}
+
+knitr::include_graphics("images/rstudio-example5.png")
+
+```
+
+---
+
+class: middle
+
+```{r, out.width="90%"}
+
+knitr::include_graphics("images/rstudio-example6.png")
+
+```
