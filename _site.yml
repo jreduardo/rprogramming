@@ -10,7 +10,7 @@ navbar:
     - text: Home
       href: index.html
     - text: Cronograma
-      href: lectures.html
+      href: calendar.html
     - text: Sobre
       href: about.html
     - icon: fa-github-alt fa-lg
