@@ -31,6 +31,15 @@ knitr::include_graphics("images/packs.png")
 knitr::include_graphics("images/rblogs.png")
 
 
+knitr::include_graphics("images/r-br.png")
+
+
+knitr::include_graphics("images/rblogsbr.png")
+
+
+knitr::include_graphics("images/stack-br.png")
+
+
 g1 <- ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width,
                        color = Species)) +
     geom_point()
@@ -59,5 +68,17 @@ knitr::include_graphics("images/rcran.png")
 knitr::include_graphics("images/rstudio1.png")
 
 
-knitr::include_graphics("images/rstudio.png")
+knitr::include_graphics("images/rstudio-example.png")
+
+
+knitr::include_graphics("images/rstudio-example3.png")
+
+
+knitr::include_graphics("images/rstudio-example4.png")
+
+
+knitr::include_graphics("images/rstudio-example5.png")
+
+
+knitr::include_graphics("images/rstudio-example6.png")
 
