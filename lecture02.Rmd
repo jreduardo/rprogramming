@@ -1,0 +1,405 @@
+---
+title: "Programação em R<hr>"
+subtitle: >
+  Conceitos da linguagem, classes de objetos e operadores básicos
+author: "Eduardo Elias Ribeiro Junior"
+date: "26 de abril de 2017"
+output:
+  xaringan::moon_reader:
+    css: ["default", "css/lecture.css"]
+    nature:
+      highlightStyle: tomorrow
+      highlightLines: true
+      slideNumberFormat: 'Slide %current%'
+---
+
+```{r include=FALSE}
+
+library(knitr)
+opts_chunk$set(
+    warning = FALSE,
+    message = FALSE,
+    echo = TRUE,
+    fig.align = "center")
+
+## ## Alternatives highlightStyle
+## arta, ascetic, dark, default, far, github, googlecode, idea, ir_black,
+## magula, monokai, rainbow, solarized-dark, solarized-light, sunburst,
+## tomorrow, tomorrow-night-blue, tomorrow-night-bright, tomorrow-night,
+## tomorrow-night-eighties, vs, zenburn
+
+```
+
+## Objetivos da aula ##
+
+- Compreender as classes de objetos no R;
+- Compreender os operadores básicos do R; e
+- Criar e manipular objetos.
+
+---
+class: inverse, center, middle
+
+# Conceitos da linguagem #
+
+---
+
+## Algumas Características ##
+
+- É _case sensitive_ ou sensível a letras maiúsculas e minúsculas;<br>
+  `HELLO` $\neq$ `Hello` $\neq$ `hello` $\neq$ $\ldots$.
+
+- É uma linguagem de programação orientada a objetos (suporte nas
+  classes S3, S4 e S6);<br>
+  existem métodos definidos para cada "tipo" de objeto.
+
+- É uma linguagem de programação funcional (FP); <br>
+  tem ferramentas para a criação e manipulação de funções.
+
+- Tem interfaces para outras linguagens de programação; <br>
+  C e Fortran
+  [base](https://cran.r-project.org/doc/manuals/r-release/R-exts.html#Interface-functions-_002eC-and-_002eFortran),
+  C++ [`Rcpp`](https://cran.r-project.org/package=reticulate), Python
+  [`reticulate`](https://cran.r-project.org/package=reticulate) entre
+  outras.
+
+---
+
+class: inverse, center, middle
+
+# Estruturas de objetos #
+
+---
+
+## Tipos de valores ##
+
+- `integer`: Valores inteiros (0, 1, 2, -1, etc);
+- `numeric`: Valores reais (1/3, 1.5, etc);
+- `complex`: Valores complexos (1i, 10 + 1i, etc);
+- `character`: Valores nominais, characteres ("olá", "Eduardo");
+- `logical`: Valores booleanos, `TRUE` ou `FALSE`.
+
+---
+
+.left-column[
+  ## Vetores ##
+
+  Sequência de valores
+]
+
+.right-column[
+
+A criação de vetores é feita, em geral, com a função `c()` (concatenate)
+que combina valores em vetores ou listas.
+
+```{r}
+
+## Cria a sequencia de 1 a 5
+(x <- c(1, 2, 3, 4, 5))
+
+## Cria a sequencia de 1 a 5
+(y <- 1:5)
+
+## Cria uma sequencia de palavras
+(z <- c("Arroz", "Feijão", "Strogonoff", "Gelatina"))
+
+## Cria uma sequencia de booleanos
+(w <- c(TRUE, FALSE, FALSE, TRUE))
+
+```
+]
+
+---
+
+.left-column[
+    ## Vetores ##
+
+  Sequência de valores
+]
+
+.right-column[
+
+```{r}
+
+str(x)
+str(y)
+str(z)
+str(w)
+
+```
+]
+
+---
+
+.left-column[
+  ## Matrizes ##
+
+  Valores organizados em linhas e colunas
+]
+
+.right-column[
+
+A criação de vetores é feita, em geral, com a função `matrix()`.
+
+```{r}
+
+## Argumentos da função matrix
+str(matrix)
+
+## Cria uma matriz de 1's
+(X <- matrix(data = 1, nrow = 2, ncol = 5))
+
+## Cria uma matriz de dimensão 3x3
+(Y <- matrix(data = 1:9, nrow = 3))
+
+```
+]
+
+---
+
+.left-column[
+  ## Matrizes ##
+
+  Valores organizados em linhas e colunas
+]
+
+.right-column[
+
+```{r}
+
+str(X)
+str(Y)
+
+```
+]
+
+---
+
+.left-column[
+  ## Listas ##
+
+  Agrupa diversos objetos
+]
+
+.right-column[
+
+A criação de vetores é feita, em geral, com a função `list()`.
+
+```{r}
+
+## Cria uma matriz lista qualquer
+(a <- list(x = x, X = X))
+
+## Outra lista
+(b <- list(a = a, cap = "Uma lista de lista"))
+
+```
+]
+
+---
+
+.left-column[
+  ## Listas ##
+
+  Agrupa diversos objetos
+]
+
+.right-column[
+
+```{r}
+
+str(a)
+str(b)
+
+```
+]
+
+---
+
+class: middle, center
+
+# Go to R #
+
+```{r, echo=FALSE}
+
+knitr::include_graphics("./images/r-logo.jpeg")
+
+```
+
+---
+
+class: inverse, center, middle
+
+# Operadores #
+
+---
+
+layout: false
+
+.left-column[
+    ## Aritméticos ##
+]
+
+.right-column[
+<br style="margin-bottom: 80px;">
+
+Executam operações aritméticas (soma, multiplicação, etc.) entre objetos
+ou vetores numéricos.
+
+```{r eval=TRUE, echo=FALSE, results="asis"}
+
+##-------------------------------------------
+## Operadores aritmeticos
+osymbs <- c("Soma"                 = "+",
+            "Subtração"            = "-",
+            "Multiplicação"        = "*",
+            "Divisão"              = "/",
+            "Potenciação"          = "^ ou **",
+            "Resto da divisão"     = "%%",
+            "Quociente da divisão" = "%/%")
+
+
+tab <- data.frame("Operação" = names(osymbs),
+                  "Operador" = osymbs)
+knitr::kable(tab, format = "html", align = c("l", "c"),
+             row.names = FALSE,
+             caption = "Lista de operadores aritméticos")
+
+```
+]
+
+---
+
+.left-column[
+  ## Aritméticos ##
+  ## Relacionais ##
+]
+.right-column[
+<br style="margin-bottom: 80px;">
+
+Executam comparações lógicas (maior, igual.) entre objetos ou vetores
+de diferentes classes.
+
+```{r eval=TRUE, echo=FALSE, results="asis"}
+
+##-------------------------------------------
+## Operadores relacionais
+osymbs <- c("Maior"          = "x < y",
+            "Menor"          = "x > y",
+            "Maior ou igual" = "x >= y",
+            "Menor ou igual" = "x <= y",
+            "Igual"          = "x == y",
+            "Diferente"      = "x != y")
+
+tab <- data.frame("Operação" = names(osymbs),
+                  "Operador" = osymbs)
+knitr::kable(tab, format = "html", align = c("l", "c"),
+             row.names = FALSE,
+             caption = "Lista de operadores relacionais")
+
+```
+]
+
+---
+
+.left-column[
+  ## Aritméticos ##
+  ## Relacionais ##
+  ## Lógicos ##
+]
+.right-column[
+<br style="margin-bottom: 80px;">
+
+Executam operações lógicas (negação, etc.) entre objetos ou vetores
+lógicos (booleanos).
+
+```{r eval=TRUE, echo=FALSE, results="asis"}
+
+##-------------------------------------------
+## Operadores aritmeticos
+osymbs <- c("Negação"                     = "!x",
+            "Operador 'E'"                = "x & y",
+            "Operador 'OU'"               = "x | y",
+            "Operador exclusivament 'OU'" = "xor(x, y)")
+
+tab <- data.frame("Operação" = names(osymbs),
+                  "Operador" = osymbs)
+knitr::kable(tab, format = "html", align = c("l", "c"),
+             row.names = FALSE,
+             caption = "Lista de operadores lógicos")
+
+```
+]
+
+---
+
+.left-column[
+  ## Aritméticos ##
+  ## Relacionais ##
+  ## Lógicos ##
+  ## Atribuição ##
+]
+.right-column[
+<br style="margin-bottom: 80px;">
+
+Atribuem valores a objetos nomeados.
+
+```{r eval=TRUE, echo=FALSE, results="asis"}
+
+##-------------------------------------------
+## Operadores aritmeticos
+osymbs <- c("Atribuição simples (à direita)"    = " <- ",
+            "Atribuição simples (à esquerda)"   = " -> ",
+            "Atribuição simples¹"               = "=",
+            "Atribuição forçada² (à direita)"   = "<<-",
+            "Atribuição forçada² (à esquerda)"   = "->>")
+
+tab <- data.frame("Operação" = names(osymbs),
+                  "Operador" = osymbs)
+knitr::kable(tab, format = "html", align = c("l", "c"),
+             row.names = FALSE,
+             caption = "Lista de operadores de atribuição")
+
+```
+]
+
+---
+
+.left-column[
+  ## Aritméticos ##
+  ## Relacionais ##
+  ## Lógicos ##
+  ## Atribuição ##
+  ## Extração ##
+]
+.right-column[
+<br style="margin-bottom: 80px;">
+
+Selecionam componentes de objetos.
+
+```{r eval=TRUE, echo=FALSE, results="asis"}
+
+##-------------------------------------------
+## Operadores de extração
+osymbs <- c("Vetores"             = "x[pos] ou x[name]",
+            "Matrizes"            = "x[row, col] ",
+            "Listas¹"             = "x[[pos]] ou  x[[name]]",
+            "Listas¹"             = "x$name",
+            "Data Frames"         = "x[row, col]",
+            "Objetos em S4 ou S6" = "x@name")
+
+tab <- data.frame("Operação" = names(osymbs),
+                  "Operador" = osymbs)
+knitr::kable(tab, format = "html", align = c("l", "c"),
+             row.names = FALSE,
+             caption = "Lista de operadores de extração")
+
+```
+]
+
+---
+
+## Próxima aula ##
+
+- Manipulação de objetos;
+- Construção e utilização de funções; e
+- Utilização da família `apply`
