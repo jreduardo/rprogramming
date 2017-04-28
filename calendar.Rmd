@@ -20,7 +20,7 @@ conteudos[1] <- paste(
     "Instalação e exploração do editor RStudio.",
     collapse = "")
 slides[1] <- "[Apresentação](./lecture01.html)"
-codes[1] <- "[R codes](./docs/lecture01.R)"
+codes[1] <- ""
 
 ##-------------------------------------------
 ## Dia 28/04
@@ -28,9 +28,9 @@ datas[2] <- "28/Abril"
 conteudos[2] <- paste(
     "Operadores básicos;",
     "Classes de objetos;",
-    "Conceitos da linguagem (vetorização, reciclagem);",
+    "Conceitos da linguagem;",
     collapse = "")
-slides[2] <- ""
+slides[2] <- "[Apresentação](./lecture02.html)"
 codes[2] <- ""
 
 ##-------------------------------------------
