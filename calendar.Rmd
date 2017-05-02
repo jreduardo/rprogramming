@@ -1,13 +1,10 @@
----
-title: Cronograma
----
+# Cronograma #
 
 As aulas são ministradas as quartas e sextas-feira das 17h00 às 18h30 na
 sala _Professor Rubens_ no pavilhão de Agroindústria, Alimentos e
 Nutrição da ESALQ-USP.
 
 ```{r, echo=FALSE, eval=TRUE}
-
 
 datas <- conteudos <- slides <- codes <- NULL
 
@@ -19,7 +16,7 @@ conteudos[1] <- paste(
     "Instalação do software R;",
     "Instalação e exploração do editor RStudio.",
     collapse = "")
-slides[1] <- "[Apresentação](./lecture01.html)"
+slides[1] <- "[Slides 01](./lecture01.html)"
 codes[1] <- ""
 
 ##-------------------------------------------
@@ -30,7 +27,7 @@ conteudos[2] <- paste(
     "Classes de objetos;",
     "Conceitos da linguagem;",
     collapse = "")
-slides[2] <- "[Apresentação](./lecture02.html)"
+slides[2] <- "[Slides 02](./lecture02.html)"
 codes[2] <- ""
 
 ##-------------------------------------------
@@ -40,7 +37,7 @@ conteudos[3] <- paste(
     "Manipulação de objetos;",
     "Construção e utilização de funções;",
     collapse = "")
-slides[3] <- ""
+slides[3] <- "[Slides 03](lecture03.html)"
 codes[3] <- ""
 
 ##-------------------------------------------
@@ -126,3 +123,57 @@ knitr::kable(cbind("Datas" = datas,
              )
 
 ```
+
+# Referências #
+
+Abaixo são listados alguns livros que apresentam aspectos introdutórios
+de programação em R. As capas dos livros são links para as suas
+respectivas páginas ou para a página de sua publicação.
+
+<style>
+.myref {
+    width: 16.5%;
+    float: left;
+    text-align: center;
+    margin-top: 10px;
+}
+.myref > p > a > img {
+    box-shadow: 0px 1px 15px 1px black;
+}
+</style>
+
+<div class="myref">
+  <a href="http://staff.pubhealth.ku.dk/~pd/ISwR.html" target="_blank">
+    <img src="./images/refs_dalgaard.jpg" width=120px>
+  </a>
+</div>
+
+<div class="myref">
+  <a href="http://www.springer.com/la/book/9780387759357" target="_blank">
+    <img src="./images/refs_chambers.jpg" width=120px>
+  </a>
+</div>
+
+<div class="myref">
+  <a href="https://www.nostarch.com/artofr.htm" target="_blank">
+    <img src="./images/refs_matloff.jpg" width=120px>
+  </a>
+</div>
+
+<div class="myref">
+  <a href="http://www.leg.ufpr.br/~paulojus/embrapa/Rembrapa/Rembrapa.pdf" target="_blank">
+    <img src="./images/refs_justiniano.jpg" width=120px>
+  </a>
+</div>
+
+<div class="myref">
+  <a href="http://www.lepem.ufc.br/jaa/RparaCS.php" target="_blank">
+    <img src="./images/refs_aquino.jpg" width=120px>
+  </a>
+</div>
+
+<div class="myref">
+  <a href="https://www.stat.auckland.ac.nz/~paul/RG2e/" target="_blank">
+    <img src="./images/refs_murrell.jpg" width=120px>
+  </a>
+</div>
