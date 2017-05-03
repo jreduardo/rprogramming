@@ -1,0 +1,333 @@
+---
+title: "Programação em R<hr>"
+subtitle: >
+  criação e manipulação de data.frames e funções
+author: "Eduardo Elias Ribeiro Junior"
+date: "26 de abril de 2017"
+output:
+  xaringan::moon_reader:
+    css: ["default", "css/lecture.css"]
+    nature:
+      highlightStyle: tomorrow
+      highlightLines: true
+      slideNumberFormat: 'Slide %current%'
+---
+
+```{r include=FALSE}
+
+library(knitr)
+opts_chunk$set(
+    warning = FALSE,
+    message = FALSE,
+    echo = TRUE,
+    fig.align = "center",
+    comment = "")
+
+## ## Alternatives highlightStyle
+## arta, ascetic, dark, default, far, github, googlecode, idea, ir_black,
+## magula, monokai, rainbow, solarized-dark, solarized-light, sunburst,
+## tomorrow, tomorrow-night-blue, tomorrow-night-bright, tomorrow-night,
+## tomorrow-night-eighties, vs, zenburn
+
+```
+
+## Objetivos da aula ##
+
+- Compreender o que são, como criar e como manipular `data.frames`;
+- Compreender a utilização de funções no R.
+
+---
+class: inverse, center, middle
+
+# `data.frames` #
+
+---
+
+## Recordando ##
+
+Foram apresentadas na [última aula](./lecture02.html) três tipos básicos
+de estruturas no R:
+
+- **vetores**: Sequência de valores de mesmo tipo (_integer_, _numeric_,
+  _character_ ou _logic_).<br>
+  ```r
+  x <- c(1, 2, 3, 4, 5)
+  ```
+
+- **matrizes**: Valores de mesmo tipo (_integer_, _numeric_, _character_
+  ou _logic_) organizados em linhas e colunas.<br>
+  ```r
+  X <- matrix(1:9, ncol = 3, byrow = TRUE)
+  ```
+
+- **listas**: Agrupamentos de objetos de diferentes tipos (_vector_,
+  _list_, _matrix_, etc.).<br>
+  ```r
+  la <- list(x = 1:5, b = matrix(1, 5, 5), c = list(5, "hello"))
+  ```
+
+---
+
+## O que é um `data.frames` ##
+
+> É a estrutura em R mais comum para armazenamento de dados. Há diversos
+> _métodos implementados para `data.frames`._
+
+```{r, eval=FALSE}
+
+## Lista de data.frames no pacote `datasets`
+data(package = "datasets")
+
+```
+
+```{r}
+
+## Lista de métodos disponíveis para classe data.frame
+methods(class = "data.frame")
+
+```
+
+---
+
+## O que é um `data.frames` ##
+
+Sob as estruturas já vistas, um `data.frame` nada mais é do que uma
+lista de vetores de mesmo tamanho.
+
+```{r}
+
+## Estrutura do dataset mtcars
+str(mtcars)
+
+```
+
+---
+
+## Criando um `data.frame` ##
+
+A criação de um `data.frame` de "dentro do R" é feita com a função
+`data.frame`. Investigue os parâmetros dessa função com
+`help(data.frame)`.
+
+```{r}
+
+## Criando um data.frame
+(mydata <- data.frame(
+    resp = c(15, 18, 16, 17, 20, 19, 22, 24, 21),
+    cova = c(1, 5, 4, 6, 5, 3, 5, 1, 1),
+    trat = rep(c("A", "B", "C"), each = 3)
+))
+
+```
+
+---
+
+## Combinando `data.frames` ##
+
+Em muitas situações deseja-se "colar", em um `data.frame`, informações
+que se referem aos mesmos indivíduos ou ainda incluir novas
+observações. Isso pode ser feito com as funções `cbind(...)` e
+`rbind(...)`.
+
+```{r eval=FALSE}
+
+## Incluindo uma nova coluna
+temp <- c(10, 27, 22, 16, 26, 27, 16, 21, 26)
+cbind(mydata, temp)
+
+```
+
+```{r eval=FALSE}
+
+## Incluindo um nova observação
+newobs <- c(22, 2, "C")
+rbind(mydata, newobs)
+
+```
+
+---
+
+## Selecinando subconjuntos ##
+
+Os `data.frames` herdam os operadores de seleção de listas e de
+matrizes.
+
+```{r}
+
+## Selecionando colunas
+## mtcars$mpg
+## mtcars[["mpg"]]
+mtcars[, "mpg"]
+
+## Selecinando linhas
+mtcars["Mazda RX4", ]
+
+```
+
+---
+
+## Selecionando subconjuntos ##
+
+Em muitas situações deseja-se selecionar um subconjunto de indivíduos
+que possuem características em comum. Isso, em geral, é feito com ajuda
+dos [operadores relacionais](./lecture02.html#16).
+
+```{r, eval=FALSE}
+
+## Selecionando os caros de 6 cilindros
+mtcars[mtcars$cyl == 6, ]
+
+## Selecionando os caros de 6 cilindros com transmissão automática
+mtcars[mtcars$cyl == 6 & mtcars$am == 0, ]
+
+## Selecionando os caros com mais de 20 mpg
+mtcars[mtcars$mpg > 20, ]
+
+```
+
+---
+
+## Selecionando subconjuntos ##
+
+Para a mesma tarefa pode-se usar a função `subset(...)` que tem como
+argumentos:
+
+- `x`: um `data.frame`;
+- `subset`: uma expressão ou vetor lógico;
+- `select`: os nomes das colunas que se deseja selecionar.
+
+```{r, eval=FALSE}
+
+## Selecionando os caros de 6 cilindros
+subset(mtcars, subset = cyl == 6)
+
+## Selecionando os caros de 6 cilindros com transmissão automática
+subset(mtcars, subset = cyl == 6 & am == 0)
+
+## Selecionando o peso dos caros com mais de 20 mpg
+subset(mtcars, subset = mpg > 20, select = wt)
+
+```
+
+---
+
+class: middle, center
+
+# Go to R #
+
+```{r, echo=FALSE}
+
+knitr::include_graphics("./images/r-logo.jpeg")
+
+```
+
+---
+class: inverse, center, middle
+
+# Funções #
+
+---
+
+## O que são funções ##
+
+São objetos em R que quando interpretados executando uma série de
+comandos pré-definidos.
+
+Funções são os principais objetos do R. Com funções podemos automatizar
+tarefas e economizar códigos.
+
+---
+
+## O que são funções ##
+
+As funções em R são compostas de basicamente três componentes:
+
+- `args`: Os argumentos da função, que serão usados no body;
+- `body`: O corpo da funções, sequência de comandos;
+- `environment`: O local de procura dos objetivos usados no body (não
+  nos preocuparemos com isso nesse curso).
+
+
+```{r}
+
+## Investigando a função que verifica o número de linhas
+## help(nrow)
+args(nrow)
+body(nrow)
+environment(nrow)
+
+```
+
+---
+
+## Criando funções ##
+
+A criação de funções é feita com o mecanismo `function` do R. Em síntese
+uma funções necessita que sejam definidos:
+
+- `args`: A lista de argumentos que serão utilizados na função;
+- `body`: A sequência de comandos a ser executada;
+- `output`: O objeto a ser retornado.
+
+Exemplo:
+```{r}
+
+## Uma funções para calcular dois valores
+myfun <- function(arg1, arg2) {
+    output <- arg1 + arg2
+{{   return(output)}}
+}
+
+```
+
+```{r}
+
+## Usando a função
+myfun(3, 4)
+
+```
+
+---
+
+## Utilizando funções ##
+
+Para a maioria das tarefas que são feitas em análise de dados já existem
+funções programadas. Sua utilização é idêntica a de funções que nós
+programamos (`nome(args)`), use e abuse do `help` das funções.
+
+Algumas funções utéis para estatísticas descritivas:
+
+- `mean()`
+- `var()`
+- `sd()`
+- `summary()`
+- `quantile()`
+- `fivenum()`
+- `table()`
+
+
+---
+
+class: middle, center
+
+# Go to R #
+
+```{r, echo=FALSE}
+
+knitr::include_graphics("./images/r-logo.jpeg")
+
+```
+
+---
+
+## Próxima aula ##
+
+- Leitura de dados externos;
+- Utilização da família `apply` para obtenção de estatísticas simples.
+
+## Atividades para próxima aula ##
+
+- Trazer um conjunto de dados de seu interesse formatado adequadamente
+(linhas são observações, colunas são as características ou variáveis).
+
+- Ler a documentação da função `read.table` (`help(read.table)`).
