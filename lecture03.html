@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="author" content="Eduardo Elias Ribeiro Junior" />
+    <link href="site_libs/remark-css-0.0.1/example.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/lecture.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Programação em R
+<hr>
+## <p>criação e manipulação de data.frames e funções</p>
+### Eduardo Elias Ribeiro Junior
+### 26 de abril de 2017
+
+---
+
+
+
+
+## Objetivos da aula ##
+
+- Compreender o que são, como criar e como manipular `data.frames`;
+- Compreender a utilização de funções no R.
+
+---
+class: inverse, center, middle
+
+# `data.frames` #
+
+---
+
+## Recordando ##
+
+Foram apresentadas na [última aula](./lecture02.html) três tipos básicos
+de estruturas no R:
+
+- **vetores**: Sequência de valores de mesmo tipo (_integer_, _numeric_,
+  _character_ ou _logic_).&lt;br&gt;
+  ```r
+  x &lt;- c(1, 2, 3, 4, 5)
+  ```
+
+- **matrizes**: Valores de mesmo tipo (_integer_, _numeric_, _character_
+  ou _logic_) organizados em linhas e colunas.&lt;br&gt;
+  ```r
+  X &lt;- matrix(1:9, ncol = 3, byrow = TRUE)
+  ```
+
+- **listas**: Agrupamentos de objetos de diferentes tipos (_vector_,
+  _list_, _matrix_, etc.).&lt;br&gt;
+  ```r
+  la &lt;- list(x = 1:5, b = matrix(1, 5, 5), c = list(5, "hello"))
+  ```
+
+---
+
+## O que é um `data.frames` ##
+
+&gt; É a estrutura em R mais comum para armazenamento de dados. Há diversos
+&gt; _métodos implementados para `data.frames`._
+
+
+```r
+## Lista de data.frames no pacote `datasets`
+data(package = "datasets")
+```
+
+
+```r
+## Lista de métodos disponíveis para classe data.frame
+methods(class = "data.frame")
+```
+
+```
+ [1] [             [[            [[&lt;-          [&lt;-           $            
+ [6] $&lt;-           aggregate     anyDuplicated as.data.frame as.list      
+[11] as.matrix     by            cbind         dim           dimnames     
+[16] dimnames&lt;-    droplevels    duplicated    edit          format       
+[21] formula       fortify       ggplot        head          is.na        
+[26] knit_print    Math          merge         na.exclude    na.omit      
+[31] Ops           plot          print         prompt        rbind        
+[36] row.names     row.names&lt;-   rowsum        split         split&lt;-      
+[41] stack         str           subset        summary       Summary      
+[46] t             tail          transform     unique        unstack      
+[51] within       
+see '?methods' for accessing help and source code
+```
+
+---
+
+## O que é um `data.frames` ##
+
+Sob as estruturas já vistas, um `data.frame` nada mais é do que uma
+lista de vetores de mesmo tamanho.
+
+
+```r
+## Estrutura do dataset mtcars
+str(mtcars)
+```
+
+```
+'data.frame':	32 obs. of  11 variables:
+ $ mpg : num  21 21 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 ...
+ $ cyl : Factor w/ 3 levels "4","6","8": 2 2 1 2 3 2 3 1 1 2 ...
+ $ disp: num  160 160 108 258 360 ...
+ $ hp  : num  110 110 93 110 175 105 245 62 95 123 ...
+ $ drat: num  3.9 3.9 3.85 3.08 3.15 2.76 3.21 3.69 3.92 3.92 ...
+ $ wt  : num  2.62 2.88 2.32 3.21 3.44 ...
+ $ qsec: num  16.5 17 18.6 19.4 17 ...
+ $ vs  : num  0 0 1 1 0 1 0 1 1 1 ...
+ $ am  : num  1 1 1 0 0 0 0 0 0 0 ...
+ $ gear: num  4 4 4 3 3 3 3 4 4 4 ...
+ $ carb: num  4 4 1 1 2 1 4 2 2 4 ...
+```
+
+---
+
+## Criando um `data.frame` ##
+
+A criação de um `data.frame` de "dentro do R" é feita com a função
+`data.frame`. Investigue os parâmetros dessa função com
+`help(data.frame)`.
+
+
+```r
+## Criando um data.frame
+(mydata &lt;- data.frame(
+    resp = c(15, 18, 16, 17, 20, 19, 22, 24, 21),
+    cova = c(1, 5, 4, 6, 5, 3, 5, 1, 1),
+    trat = rep(c("A", "B", "C"), each = 3)
+))
+```
+
+```
+  resp cova trat
+1   15    1    A
+2   18    5    A
+3   16    4    A
+4   17    6    B
+5   20    5    B
+6   19    3    B
+7   22    5    C
+8   24    1    C
+9   21    1    C
+```
+
+---
+
+## Combinando `data.frames` ##
+
+Em muitas situações deseja-se "colar", em um `data.frame`, informações
+que se referem aos mesmos indivíduos ou ainda incluir novas
+observações. Isso pode ser feito com as funções `cbind(...)` e
+`rbind(...)`.
+
+
+```r
+## Incluindo uma nova coluna
+temp &lt;- c(10, 27, 22, 16, 26, 27, 16, 21, 26)
+cbind(mydata, temp)
+```
+
+
+```r
+## Incluindo um nova observação
+newobs &lt;- c(22, 2, "C")
+rbind(mydata, newobs)
+```
+
+---
+
+## Selecinando subconjuntos ##
+
+Os `data.frames` herdam os operadores de seleção de listas e de
+matrizes.
+
+
+```r
+## Selecionando colunas
+## mtcars$mpg
+## mtcars[["mpg"]]
+mtcars[, "mpg"]
+```
+
+```
+ [1] 21.0 21.0 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 17.8 16.4 17.3 15.2
+[15] 10.4 10.4 14.7 32.4 30.4 33.9 21.5 15.5 15.2 13.3 19.2 27.3 26.0 30.4
+[29] 15.8 19.7 15.0 21.4
+```
+
+```r
+## Selecinando linhas
+mtcars["Mazda RX4", ]
+```
+
+```
+          mpg cyl disp  hp drat   wt  qsec vs am gear carb
+Mazda RX4  21   6  160 110  3.9 2.62 16.46  0  1    4    4
+```
+
+---
+
+## Selecionando subconjuntos ##
+
+Em muitas situações deseja-se selecionar um subconjunto de indivíduos
+que possuem características em comum. Isso, em geral, é feito com ajuda
+dos [operadores relacionais](./lecture02.html#16).
+
+
+```r
+## Selecionando os caros de 6 cilindros
+mtcars[mtcars$cyl == 6, ]
+
+## Selecionando os caros de 6 cilindros com transmissão automática
+mtcars[mtcars$cyl == 6 &amp; mtcars$am == 0, ]
+
+## Selecionando os caros com mais de 20 mpg
+mtcars[mtcars$mpg &gt; 20, ]
+```
+
+---
+
+## Selecionando subconjuntos ##
+
+Para a mesma tarefa pode-se usar a função `subset(...)` que tem como
+argumentos:
+
+- `x`: um `data.frame`;
+- `subset`: uma expressão ou vetor lógico;
+- `select`: os nomes das colunas que se deseja selecionar.
+
+
+```r
+## Selecionando os caros de 6 cilindros
+subset(mtcars, subset = cyl == 6)
+
+## Selecionando os caros de 6 cilindros com transmissão automática
+subset(mtcars, subset = cyl == 6 &amp; am == 0)
+
+## Selecionando o peso dos caros com mais de 20 mpg
+subset(mtcars, subset = mpg &gt; 20, select = wt)
+```
+
+---
+
+class: middle, center
+
+# Go to R #
+
+&lt;img src="./images/r-logo.jpeg" style="display: block; margin: auto;" /&gt;
+
+---
+class: inverse, center, middle
+
+# Funções #
+
+---
+
+## O que são funções ##
+
+São objetos em R que quando interpretados executando uma série de
+comandos pré-definidos.
+
+Funções são os principais objetos do R. Com funções podemos automatizar
+tarefas e economizar códigos.
+
+---
+
+## O que são funções ##
+
+As funções em R são compostas de basicamente três componentes:
+
+- `args`: Os argumentos da função, que serão usados no body;
+- `body`: O corpo da funções, sequência de comandos;
+- `environment`: O local de procura dos objetivos usados no body (não
+  nos preocuparemos com isso nesse curso).
+
+
+
+```r
+## Investigando a função que verifica o número de linhas
+## help(nrow)
+args(nrow)
+```
+
+```
+function (x) 
+NULL
+```
+
+```r
+body(nrow)
+```
+
+```
+dim(x)[1L]
+```
+
+```r
+environment(nrow)
+```
+
+```
+&lt;environment: namespace:base&gt;
+```
+
+---
+
+## Criando funções ##
+
+A criação de funções é feita com o mecanismo `function` do R. Em síntese
+uma funções necessita que sejam definidos:
+
+- `args`: A lista de argumentos que serão utilizados na função;
+- `body`: A sequência de comandos a ser executada;
+- `output`: O objeto a ser retornado.
+
+Exemplo:
+
+```r
+## Uma funções para calcular dois valores
+myfun &lt;- function(arg1, arg2) {
+    output &lt;- arg1 + arg2
+*   return(output)
+}
+```
+
+
+```r
+## Usando a função
+myfun(3, 4)
+```
+
+```
+[1] 7
+```
+
+---
+
+## Utilizando funções ##
+
+Para a maioria das tarefas que são feitas em análise de dados já existem
+funções programadas. Sua utilização é idêntica a de funções que nós
+programamos (`nome(args)`), use e abuse do `help` das funções.
+
+Algumas funções utéis para estatísticas descritivas:
+
+- `mean()`
+- `var()`
+- `sd()`
+- `summary()`
+- `quantile()`
+- `fivenum()`
+- `table()`
+
+
+---
+
+class: middle, center
+
+# Go to R #
+
+&lt;img src="./images/r-logo.jpeg" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Próxima aula ##
+
+- Leitura de dados externos;
+- Utilização da família `apply` para obtenção de estatísticas simples.
+
+## Atividades para próxima aula ##
+
+- Trazer um conjunto de dados de seu interesse formatado adequadamente
+(linhas são observações, colunas são as características ou variáveis).
+
+- Ler a documentação da função `read.table` (`help(read.table)`).
+    </textarea>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "tomorrow",
+"highlightLines": true,
+"slideNumberFormat": "Slide %current%"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {window.dispatchEvent(new Event('resize'));});</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+  }
+});
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
