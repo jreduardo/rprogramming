@@ -48,7 +48,7 @@ conteudos[4] <- paste(
     "Manipulação de `data.frames`;",
     "Obtenção de estatísticas simples",
     collapse = "")
-slides[4] <- ""
+slides[4] <- "[Slides 04](lecture04.html)"
 codes[4] <- ""
 
 ##-------------------------------------------
