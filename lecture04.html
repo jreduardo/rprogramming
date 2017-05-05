@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="author" content="Eduardo Elias Ribeiro Junior" />
+    <link href="site_libs/remark-css-0.0.1/example.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/lecture.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Programação em R
+<hr>
+## <p>Leitura de dados e funções apply</p>
+### Eduardo Elias Ribeiro Junior
+### 26 de abril de 2017
+
+---
+
+
+
+
+## Objetivos da aula ##
+
+- Compreender o uso de funções para leitura de dados externos ao R;
+    - De arquivos CSV/TSV;
+    - De arquivos `.xlx` e `.xlxs` (Excel);
+    - De arquivos `.sas7bdat` (SAS);
+    - De arquivos `.sav` (SPSS);
+    - De arquivos `.dta` (Stata).
+
+- Compreender a utilização de funções da familía `apply`.
+    - `apply(...)`;
+    - `tapply(...)`;
+    - `lapply(...)`;
+    - `sapply(...)`;
+
+---
+class: inverse, center, middle
+
+# Leitura de dados externos #
+
+---
+
+## Armazenamento de arquivos ##
+
+Existem dois tipos principais de arquivos:
+
+- **Arquivos binários**
+- **Arquivos de texto**
+
+--
+
+Extensões de arquivos, em geral, definem qual o comportamento do seu
+computador com relação ao certo arquivo.
+
+--
+
+Para conjuntos de dados "pequenos" é preferível exportá-los como
+arquivos de textos para compartilhá-los com outros programas para
+análise, como o R.
+
+---
+
+## Leitura de arquivos de texto (CSV/TSV) ##
+
+A principal função para leitura de dados de arquivos de texto é a
+`read.table`.
+
+
+```r
+dados &lt;- read.table(
+    file = "arquivo.csv",   ## Caminho do arquivo
+    header = TRUE,          ## Se há cabeçalho
+    sep = ";",              ## Separador de campos
+    dec = ".",              ## Marcador de decimais
+    quote = "",             ## Marcador para strings
+    na.strings = "NA",      ## Marcador de valores ausentes
+    skip = 2,               ## Linhas desconsideradas
+    encoding = "latin1"     ## Codificação
+)
+```
+
+As funções `read.csv(...)` e `read.csv2(...)` são _wrappers_ para a
+`read.table`. Veja seu código-fonte!
+
+---
+
+## Leitura de arquivos binários (xlx/xlsx) ##
+
+Para arquivos gerados pelo programa comercial Excel (extensão `xlx`,
+`xlsx`) não há funções básicas para leitura, porém há pacotes no
+repositóirio oficial (CRAN) que trazem funcionalidades para
+lê-los. Usaremos o pacote `readxl`.
+
+
+```r
+## install.packages("readxl", dependencies = TRUE)
+library(readxl)
+dados &lt;- read_excel(
+    path = "arquivo.xlsx",  ## Caminho do arquivo
+    col_names = TRUE,       ## Se há cabeçalho
+    na.strings = "NA",      ## Marcador de valores ausentes
+    skip = 2                ## Linhas desconsideradas
+)
+```
+
+---
+
+## Leitura de arquivos binários (SAS/SPSS/Stata) ##
+
+Para arquivos gerados pelos programa SAS (extensão `sas7bdat`,
+`xlsx`), SPSS (extensão `.sav`), Stata (extensão `.dta`) também não há
+funções de leitura nos pacotes básicos. O pacote `haven` traz
+ferramentas para tal tarefa.
+
+
+```r
+## install.packages("haven", dependencies = TRUE)
+library(haven)
+dados &lt;- read_sas(path = "arquivo.sas7bdat")
+dados &lt;- read_spss(path = "arquivo.sav")
+dados &lt;- read_stata(path = "arquivo.sav")
+```
+
+---
+
+class: inverse, middle, center
+
+# Funções apply #
+
+---
+
+## Família `*apply` ##
+
+ - `apply`: Aplica uma função a margens de uma matrix (ou _array_). Pode
+ retornar um vetor, matrix ou lista dependendo da função.&lt;br&gt;
+ Argumentos:
+     - `X`: A matriz (ou _array_);
+     - `MARGIN`: Indica a margem para aplicar a função;
+     - `FUN`: Função a ser aplicada, seu _output_ define a classe do
+       abjeto retornado.
+
+
+
+```r
+## Uma matrix qualquer
+M &lt;- matrix(1, ncol = 8, nrow = 3)
+
+## Aplica a soma às linhas
+apply(X = M, MARGIN = 1, FUN = sum)
+```
+
+```
+[1] 8 8 8
+```
+
+```r
+## Aplica a soma às colunas
+apply(X = M, MARGIN = 2, FUN = sum)
+```
+
+```
+[1] 3 3 3 3 3 3 3 3
+```
+
+---
+
+## Família `*apply` ##
+
+ - `tapply`: Aplica uma função à um vetor seccionado por grupos. Pode
+ retornar um vetor, matrix ou lista dependendo da função aplicada.&lt;br&gt;
+ Argumentos:
+     - `X`: Um vetor;
+     - `INDEX`: Um vetor (ou lista) que define os grupos;
+     - `FUN`: Função a ser aplicada, seu _output_ define a classe do
+       abjeto retornado.
+
+
+
+```r
+## O vetor com valores de interesse e seus grupos
+y &lt;- 1:12
+g &lt;- rep(c("A", "B", "C", "D"), each = 3)
+
+## Aplica a soma aos grupos
+tapply(X = y, INDEX = g, FUN = sum)
+```
+
+```
+ A  B  C  D 
+ 6 15 24 33 
+```
+
+```r
+## Aplica a média aos grupos
+tapply(X = y, INDEX = g, FUN = mean)
+```
+
+```
+ A  B  C  D 
+ 2  5  8 11 
+```
+
+---
+
+## Família `*apply` ##
+
+ - `lapply`: Aplica uma função à elementos de uma lista. Retorna uma
+   lista com os resultados da função aplicada.&lt;br&gt;
+   Argumentos:
+     - `X`: Uma lista (ou vetor);
+     - `FUN`: Função a ser aplicada.
+
+
+
+```r
+## O vetor com valores de interesse e seus grupos
+X &lt;- list(a = rep(1, 10), b = 1:10, c = 11:20, d = 1:5)
+
+## Aplica aos elementos da lista
+lapply(X = X, FUN = sum)
+```
+
+```
+$a
+[1] 10
+
+$b
+[1] 55
+
+$c
+[1] 155
+
+$d
+[1] 15
+```
+
+---
+
+## Família `*apply` ##
+
+ - `sapply`: Identica à função `lapply`, porém tenta simplificar o
+   resultado. Examine seu código-fonte.
+
+
+
+```r
+## O vetor com valores de interesse e seus grupos
+X &lt;- list(a = rep(1, 10), b = 1:10, c = 11:20, d = 1:5)
+
+## Aplica aos elementos da lista
+sapply(X = X, FUN = sum)
+```
+
+```
+  a   b   c   d 
+ 10  55 155  15 
+```
+
+```r
+## Idêntico a
+simplify2array(lapply(X = X, FUN = sum))
+```
+
+```
+  a   b   c   d 
+ 10  55 155  15 
+```
+
+---
+
+## Outras funções ##
+
+Algumas outras funções dos pacotes básicos também são funções muito
+utéis em análise de dados, como:
+
+- `by(...)`
+- `aggregate(...)`
+
+e outras versões da família `apply`:
+
+- `vapply(...)`
+- `mapply()`
+
+--
+
+Alguns pacotes contemporâneos como
+[`dplyr`](http://dplyr.tidyverse.org/) facilitam a tarefa de _Split,
+Apply and Combine_, não será objeto de estudo aqui, por ser um curso de
+caracter introdutório. Todavia seu estudo é de grande utilidade.
+
+---
+
+## Próxima aula ##
+
+- Realização de gráficos no R
+
+## Atividades para a próxima aula ##
+
+- Veja a demostração do tópico _graphics_ do pacote `graphics`
+  (`demo(topic = "graphics")`).
+- Visite e explore os sites
+  [The R Graph Gallery](http://www.r-graph-gallery.com/) e
+  [Quick-R Graphs](http://www.statmethods.net/graphs/).
+    </textarea>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "tomorrow",
+"highlightLines": true,
+"slideNumberFormat": "Slide %current%"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {window.dispatchEvent(new Event('resize'));});</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+  }
+});
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
