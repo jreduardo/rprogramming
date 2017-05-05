@@ -1,0 +1,275 @@
+---
+title: "Programação em R<hr>"
+subtitle: >
+  Leitura de dados e funções apply
+author: "Eduardo Elias Ribeiro Junior"
+date: "26 de abril de 2017"
+output:
+  xaringan::moon_reader:
+    css: ["default", "css/lecture.css"]
+    nature:
+      highlightStyle: tomorrow
+      highlightLines: true
+      slideNumberFormat: 'Slide %current%'
+---
+
+```{r include=FALSE}
+
+library(knitr)
+opts_chunk$set(
+    warning = FALSE,
+    message = FALSE,
+    echo = TRUE,
+    fig.align = "center",
+    comment = "")
+
+## ## Alternatives highlightStyle
+## arta, ascetic, dark, default, far, github, googlecode, idea, ir_black,
+## magula, monokai, rainbow, solarized-dark, solarized-light, sunburst,
+## tomorrow, tomorrow-night-blue, tomorrow-night-bright, tomorrow-night,
+## tomorrow-night-eighties, vs, zenburn
+
+```
+
+## Objetivos da aula ##
+
+- Compreender o uso de funções para leitura de dados externos ao R;
+    - De arquivos CSV/TSV;
+    - De arquivos `.xlx` e `.xlxs` (Excel);
+    - De arquivos `.sas7bdat` (SAS);
+    - De arquivos `.sav` (SPSS);
+    - De arquivos `.dta` (Stata).
+
+- Compreender a utilização de funções da familía `apply`.
+    - `apply(...)`;
+    - `tapply(...)`;
+    - `lapply(...)`;
+    - `sapply(...)`;
+
+---
+class: inverse, center, middle
+
+# Leitura de dados externos #
+
+---
+
+## Armazenamento de arquivos ##
+
+Existem dois tipos principais de arquivos:
+
+- **Arquivos binários**
+- **Arquivos de texto**
+
+--
+
+Extensões de arquivos, em geral, definem qual o comportamento do seu
+computador com relação ao certo arquivo.
+
+--
+
+Para conjuntos de dados "pequenos" é preferível exportá-los como
+arquivos de textos para compartilhá-los com outros programas para
+análise, como o R.
+
+---
+
+## Leitura de arquivos de texto (CSV/TSV) ##
+
+A principal função para leitura de dados de arquivos de texto é a
+`read.table`.
+
+```{r, eval=FALSE}
+
+dados <- read.table(
+    file = "arquivo.csv",   ## Caminho do arquivo
+    header = TRUE,          ## Se há cabeçalho
+    sep = ";",              ## Separador de campos
+    dec = ".",              ## Marcador de decimais
+    quote = "",             ## Marcador para strings
+    na.strings = "NA",      ## Marcador de valores ausentes
+    skip = 2,               ## Linhas desconsideradas
+    encoding = "latin1"     ## Codificação
+)
+
+```
+
+As funções `read.csv(...)` e `read.csv2(...)` são _wrappers_ para a
+`read.table`. Veja seu código-fonte!
+
+---
+
+## Leitura de arquivos binários (xlx/xlsx) ##
+
+Para arquivos gerados pelo programa comercial Excel (extensão `xlx`,
+`xlsx`) não há funções básicas para leitura, porém há pacotes no
+repositóirio oficial (CRAN) que trazem funcionalidades para
+lê-los. Usaremos o pacote `readxl`.
+
+```{r, eval=FALSE}
+
+## install.packages("readxl", dependencies = TRUE)
+library(readxl)
+dados <- read_excel(
+    path = "arquivo.xlsx",  ## Caminho do arquivo
+    col_names = TRUE,       ## Se há cabeçalho
+    na.strings = "NA",      ## Marcador de valores ausentes
+    skip = 2                ## Linhas desconsideradas
+)
+
+```
+
+---
+
+## Leitura de arquivos binários (SAS/SPSS/Stata) ##
+
+Para arquivos gerados pelos programa SAS (extensão `sas7bdat`,
+`xlsx`), SPSS (extensão `.sav`), Stata (extensão `.dta`) também não há
+funções de leitura nos pacotes básicos. O pacote `haven` traz
+ferramentas para tal tarefa.
+
+```{r, eval=FALSE}
+
+## install.packages("haven", dependencies = TRUE)
+library(haven)
+dados <- read_sas(path = "arquivo.sas7bdat")
+dados <- read_spss(path = "arquivo.sav")
+dados <- read_stata(path = "arquivo.sav")
+
+```
+
+---
+
+class: inverse, middle, center
+
+# Funções apply #
+
+---
+
+## Família `*apply` ##
+
+ - `apply`: Aplica uma função a margens de uma matrix (ou _array_). Pode
+ retornar um vetor, matrix ou lista dependendo da função.<br>
+ Argumentos:
+     - `X`: A matriz (ou _array_);
+     - `MARGIN`: Indica a margem para aplicar a função;
+     - `FUN`: Função a ser aplicada, seu _output_ define a classe do
+       abjeto retornado.
+
+
+```{r}
+
+## Uma matrix qualquer
+M <- matrix(1, ncol = 8, nrow = 3)
+
+## Aplica a soma às linhas
+apply(X = M, MARGIN = 1, FUN = sum)
+
+## Aplica a soma às colunas
+apply(X = M, MARGIN = 2, FUN = sum)
+
+```
+
+---
+
+## Família `*apply` ##
+
+ - `tapply`: Aplica uma função à um vetor seccionado por grupos. Pode
+ retornar um vetor, matrix ou lista dependendo da função aplicada.<br>
+ Argumentos:
+     - `X`: Um vetor;
+     - `INDEX`: Um vetor (ou lista) que define os grupos;
+     - `FUN`: Função a ser aplicada, seu _output_ define a classe do
+       abjeto retornado.
+
+
+```{r}
+
+## O vetor com valores de interesse e seus grupos
+y <- 1:12
+g <- rep(c("A", "B", "C", "D"), each = 3)
+
+## Aplica a soma aos grupos
+tapply(X = y, INDEX = g, FUN = sum)
+
+## Aplica a média aos grupos
+tapply(X = y, INDEX = g, FUN = mean)
+
+```
+
+---
+
+## Família `*apply` ##
+
+ - `lapply`: Aplica uma função à elementos de uma lista. Retorna uma
+   lista com os resultados da função aplicada.<br>
+   Argumentos:
+     - `X`: Uma lista (ou vetor);
+     - `FUN`: Função a ser aplicada.
+
+
+```{r}
+
+## O vetor com valores de interesse e seus grupos
+X <- list(a = rep(1, 10), b = 1:10, c = 11:20, d = 1:5)
+
+## Aplica aos elementos da lista
+lapply(X = X, FUN = sum)
+
+```
+
+---
+
+## Família `*apply` ##
+
+ - `sapply`: Identica à função `lapply`, porém tenta simplificar o
+   resultado. Examine seu código-fonte.
+
+
+```{r}
+
+## O vetor com valores de interesse e seus grupos
+X <- list(a = rep(1, 10), b = 1:10, c = 11:20, d = 1:5)
+
+## Aplica aos elementos da lista
+sapply(X = X, FUN = sum)
+
+## Idêntico a
+simplify2array(lapply(X = X, FUN = sum))
+
+```
+
+---
+
+## Outras funções ##
+
+Algumas outras funções dos pacotes básicos também são funções muito
+utéis em análise de dados, como:
+
+- `by(...)`
+- `aggregate(...)`
+
+e outras versões da família `apply`:
+
+- `vapply(...)`
+- `mapply()`
+
+--
+
+Alguns pacotes contemporâneos como
+[`dplyr`](http://dplyr.tidyverse.org/) facilitam a tarefa de _Split,
+Apply and Combine_, não será objeto de estudo aqui, por ser um curso de
+caracter introdutório. Todavia seu estudo é de grande utilidade.
+
+---
+
+## Próxima aula ##
+
+- Realização de gráficos no R
+
+## Atividades para a próxima aula ##
+
+- Veja a demostração do tópico _graphics_ do pacote `graphics`
+  (`demo(topic = "graphics")`).
+- Visite e explore os sites
+  [The R Graph Gallery](http://www.r-graph-gallery.com/) e
+  [Quick-R Graphs](http://www.statmethods.net/graphs/).
