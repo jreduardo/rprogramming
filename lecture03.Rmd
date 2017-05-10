@@ -3,7 +3,7 @@ title: "Programação em R<hr>"
 subtitle: >
   criação e manipulação de data.frames e funções
 author: "Eduardo Elias Ribeiro Junior"
-date: "26 de abril de 2017"
+date: "03 de maio de 2017"
 output:
   xaringan::moon_reader:
     css: ["default", "css/lecture.css"]
