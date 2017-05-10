@@ -45,7 +45,7 @@ codes[3] <- ""
 datas[4] <- "05/Maio"
 conteudos[4] <- paste(
     "Leitura de dados no R",
-    "Manipulação de `data.frames`;"
+    "Manipulação de `data.frames`;",
     collapse = "")
 slides[4] <- "[Slides 04 - I](lecture04.html)"
 codes[4] <- ""
