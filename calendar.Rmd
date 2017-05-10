@@ -45,19 +45,18 @@ codes[3] <- ""
 datas[4] <- "05/Maio"
 conteudos[4] <- paste(
     "Leitura de dados no R",
-    "Manipulação de `data.frames`;",
-    "Obtenção de estatísticas simples",
+    "Manipulação de `data.frames`;"
     collapse = "")
-slides[4] <- "[Slides 04](lecture04.html)"
+slides[4] <- "[Slides 04 - I](lecture04.html)"
 codes[4] <- ""
 
 ##-------------------------------------------
 ## Dia 10/05
 datas[5] <- "10/Maio"
 conteudos[5] <- paste(
-    "Visualização de dados usando o pacote `graphics`",
+    "Uso de funções para obtenção de estatísticas simples",
     collapse = "")
-slides[5] <- ""
+slides[5] <- "[Slides 04 - II](lecture04.html#10)"
 codes[5] <- ""
 
 ##-------------------------------------------
