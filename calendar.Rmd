@@ -110,7 +110,7 @@ conteudos[10] <- paste(
     "Exploração de temas (Taks Views)",
     "Exploração de pacotes (vinhetas, páginas de ajuda, código-fonte)",
     collapse = "")
-slides[2] <- "[Slides 10](./lecture10.html)"
+slides[10] <- "[Slides 10](./lecture10.html)"
 codes[10] <- ""
 
 ##----------------------------------------------------------------------
